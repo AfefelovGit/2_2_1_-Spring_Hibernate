@@ -16,44 +16,32 @@ public class MainApp {
 
         UserService userService = context.getBean(UserService.class);
 
-        // Для порядка создадим сами таблицы сначала
-//      userService.createTables();
+//        userService.createTables();
 
-        // добавляем пользователей
         String modelCar = "Mercedes";
         int seriesCar = 600;
 
         User user1 = new User("Aleksandr", "Aleksandrov", "Aleksandrov@mail.ru");
         Car car1 = new Car(modelCar, seriesCar);
         user1.setCar(car1);
-//      car1.setUser(user1);
         userService.add(user1);
 
         User user2 = new User("Ivan", "Ivanov", "Ivanov@mail.ru");
         Car car2 = new Car("BMW", 7);
         user2.setCar(car2);
-//      car2.setUser(user2);
         userService.add(user2);
 
         User user3 = new User("Sergej", "Sergeev", "Sergeev@mail.ru");
         Car car3 = new Car("Tesla", 3);
         user3.setCar(car3);
-//      car3.setUser(user3);
         userService.add(user3);
 
         User user4 = new User("Victor", "Victorov", "Victorov@mail.ru");
         Car car4 = new Car("Honda", 10);
         user4.setCar(car4);
-//      car4.setUser(user4);
         userService.add(user4);
-/*
-      userService.add(new User("Aleksandr", "Aleksandrov", "Aleksandrov@mail.ru"));
-      userService.add(new User("Ivan", "Ivanov", "Ivanov@mail.ru"));
-      userService.add(new User("Sergej", "Sergeev", "Sergeev@mail.ru"));
-      userService.add(new User("Victor", "Victorov", "Victorov@mail.ru"));
-*/
+
         System.out.println();
-        // получим пользователей определенной машиной
         System.out.printf("Users с машиной %s %d\n", modelCar, seriesCar);
         List<User> usersCar = userService.findUserByCar(modelCar, seriesCar);
         if (usersCar != null && !usersCar.isEmpty()) {
@@ -64,8 +52,6 @@ public class MainApp {
             }
         }
 
-        // удалим одного пользователя по id
-
         System.out.println();
         List<User> users = userService.listUsers();
         int i = 1;
@@ -73,18 +59,6 @@ public class MainApp {
             System.out.printf("User%2d: %s\n", i, user);
             i++;
         }
-/*
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
-*/
-
-
-        // удалим всех пользователей
-
-        // удалим таблицу
-
 
         context.close();
     }

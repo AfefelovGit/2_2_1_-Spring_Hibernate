@@ -39,7 +39,6 @@ public class UserDaoImp implements UserDao {
             DEFAULT CHARACTER SET = UTF8MB4;
             """;
 
-    // создание нужных таблиц
     @Override
     public void createTables() {
         Session session = sessionFactory.getCurrentSession();
@@ -49,7 +48,6 @@ public class UserDaoImp implements UserDao {
         query.executeUpdate();
     }
 
-    // юзеры с одинаковым email добавляться не будут
     @Override
     public void add(User user) {
         List<User> userEmail = null;
@@ -68,7 +66,6 @@ public class UserDaoImp implements UserDao {
         return query.getResultList();
     }
 
-    //  получение пользователей по машине (модель и серия), могут быть несколько пользователей с одинаковой машиной
     @Override
     public List<User> findUserByCar(String carModel, int carSeries) {
         Session session = sessionFactory.getCurrentSession();
