@@ -2,6 +2,7 @@ package hiber.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 import static java.lang.String.format;
 
@@ -50,6 +51,18 @@ public class Car implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return Objects.equals(user, car.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(user);
     }
 
     @Override

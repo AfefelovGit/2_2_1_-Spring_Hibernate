@@ -13,12 +13,10 @@ public class MainApp {
     public static void main(String[] args) throws SQLException {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
-
         UserService userService = context.getBean(UserService.class);
 
         String modelCar = "Mercedes";
         int seriesCar = 600;
-
         User user1 = new User("Aleksandr", "Aleksandrov", "Aleksandrov@mail.ru");
         Car car1 = new Car(modelCar, seriesCar);
         user1.setCar(car1);
@@ -51,7 +49,6 @@ public class MainApp {
         }
 
         userService.removeUserById(3L);
-
         System.out.println();
         List<User> users = userService.listUsers();
         int i = 1;

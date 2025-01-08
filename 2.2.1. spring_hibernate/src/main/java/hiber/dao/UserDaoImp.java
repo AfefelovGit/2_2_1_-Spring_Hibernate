@@ -19,15 +19,25 @@ public class UserDaoImp implements UserDao {
     @Override
     public boolean add(User user) {
         List<User> userEmail = null;
+
+        if (user.getEmail() == null || user.getEmail().length() < 6) {
+            return false ;
+        }
+        if (user.getFirstName() == null || user.getFirstName().length() < 3) {
+            return false ;
+        }
+        if (user.getLastName() == null || user.getLastName().length() < 3) {
+            return false ;
+        }
+
         Session session = sessionFactory.getCurrentSession();
         TypedQuery<User> query = session.createQuery("from User where email = :email", User.class);
         query.setParameter("email", user.getEmail());
         userEmail = query.getResultList();
         if (userEmail == null || userEmail.isEmpty()) {
             sessionFactory.getCurrentSession().save(user);
-            return true;
         }
-        return false;
+        return true ;
     }
 
     @Override
