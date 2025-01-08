@@ -16,8 +16,6 @@ public class MainApp {
 
         UserService userService = context.getBean(UserService.class);
 
-//        userService.createTables();
-
         String modelCar = "Mercedes";
         int seriesCar = 600;
 
@@ -51,6 +49,8 @@ public class MainApp {
                 i++;
             }
         }
+
+        userService.removeUserById(3L);
 
         System.out.println();
         List<User> users = userService.listUsers();

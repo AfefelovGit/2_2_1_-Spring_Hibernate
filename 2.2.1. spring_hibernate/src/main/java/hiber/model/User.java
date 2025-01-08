@@ -7,7 +7,9 @@ import javax.persistence.*;
 import static java.lang.String.format;
 
 @Entity
-@Table(name = "users")
+@Table(
+        name = "users",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
 
     @Id
@@ -25,7 +27,7 @@ public class User {
     private String email;
 
     @OneToOne(mappedBy = "user")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Car car;
 
     public User() {
@@ -41,7 +43,7 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 

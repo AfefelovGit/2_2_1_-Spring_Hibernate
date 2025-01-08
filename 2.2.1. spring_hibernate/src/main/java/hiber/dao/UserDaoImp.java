@@ -16,40 +16,8 @@ public class UserDaoImp implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    private static final String CREATE_TABLE_USERS = """
-            CREATE TABLE IF NOT EXISTS `mydbb`.`users` (
-                      `id` BIGINT NOT NULL AUTO_INCREMENT,
-                      `name` VARCHAR(45) NOT NULL,
-                      `last_name` VARCHAR(45) NOT NULL,
-                      `email` VARCHAR(45) NOT NULL,
-                      PRIMARY KEY (`id`),
-                      UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
-            ENGINE = InnoDB
-            DEFAULT CHARACTER SET = UTF8MB4;
-            """;
-
-    private static final String CREATE_TABLE_CAR = """
-            CREATE TABLE IF NOT EXISTS `mydbb`.`car` (
-                  `user_id` BIGINT NOT NULL,
-                  `model` VARCHAR(64) NOT NULL,
-                  `series` INT NOT NULL,
-                  PRIMARY KEY (`user_id`),
-                  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE)
-            ENGINE = InnoDB
-            DEFAULT CHARACTER SET = UTF8MB4;
-            """;
-
     @Override
-    public void createTables() {
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createNativeQuery(CREATE_TABLE_USERS);
-        query.executeUpdate();
-        query = session.createNativeQuery(CREATE_TABLE_CAR);
-        query.executeUpdate();
-    }
-
-    @Override
-    public void add(User user) {
+    public boolean add(User user) {
         List<User> userEmail = null;
         Session session = sessionFactory.getCurrentSession();
         TypedQuery<User> query = session.createQuery("from User where email = :email", User.class);
@@ -57,7 +25,9 @@ public class UserDaoImp implements UserDao {
         userEmail = query.getResultList();
         if (userEmail == null || userEmail.isEmpty()) {
             sessionFactory.getCurrentSession().save(user);
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -75,4 +45,14 @@ public class UserDaoImp implements UserDao {
         query.setParameter("carSeries", carSeries);
         return query.getResultList();
     }
+
+    @Override
+    public void removeUserById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, id);
+        if (user != null) {
+            session.delete(user);
+        }
+    }
+
 }

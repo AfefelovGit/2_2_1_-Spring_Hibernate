@@ -4,12 +4,12 @@ import hiber.model.User;
 import java.util.List;
 
 public interface UserService {
-    void add(User user);
+    public boolean add(User user);
 
     List<User> listUsers();
 
     public List<User> findUserByCar(String carModel, int carSeries);
 
-    public void createTables();
+    public void removeUserById(Long id);
 
 }
