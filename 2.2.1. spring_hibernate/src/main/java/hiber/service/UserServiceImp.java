@@ -16,14 +16,14 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     @Override
-    public boolean add(User user) {
-        return userDao.add(user);
+    public boolean addUser(User user) {
+        return userDao.addUser(user);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<User> listUsers() {
-        return userDao.listUsers();
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
     }
 
     @Transactional(readOnly = true)
@@ -31,11 +31,4 @@ public class UserServiceImp implements UserService {
     public List<User> findUserByCar(String carModel, int carSeries) {
         return userDao.findUserByCar(carModel, carSeries);
     }
-
-    @Transactional
-    @Override
-    public void removeUserById(Long id) {
-        userDao.removeUserById(id);
-    }
-
 }

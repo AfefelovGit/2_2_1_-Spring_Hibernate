@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -17,17 +16,13 @@ public class UserDaoImp implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public boolean add(User user) {
+    public boolean addUser(User user) {
         List<User> userEmail = null;
 
-        if (user.getEmail() == null || user.getEmail().length() < 6) {
-            return false ;
-        }
-        if (user.getFirstName() == null || user.getFirstName().length() < 3) {
-            return false ;
-        }
-        if (user.getLastName() == null || user.getLastName().length() < 3) {
-            return false ;
+        if (user.getEmail() == null || user.getEmail().length() < 6
+                || user.getFirstName() == null || user.getFirstName().length() < 3
+                || user.getLastName() == null || user.getLastName().length() < 3) {
+            return false;
         }
 
         Session session = sessionFactory.getCurrentSession();
@@ -37,11 +32,11 @@ public class UserDaoImp implements UserDao {
         if (userEmail == null || userEmail.isEmpty()) {
             sessionFactory.getCurrentSession().save(user);
         }
-        return true ;
+        return true;
     }
 
     @Override
-    public List<User> listUsers() {
+    public List<User> getAllUsers() {
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User", User.class);
         return query.getResultList();
     }
@@ -55,14 +50,4 @@ public class UserDaoImp implements UserDao {
         query.setParameter("carSeries", carSeries);
         return query.getResultList();
     }
-
-    @Override
-    public void removeUserById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        User user = session.get(User.class, id);
-        if (user != null) {
-            session.delete(user);
-        }
-    }
-
 }
