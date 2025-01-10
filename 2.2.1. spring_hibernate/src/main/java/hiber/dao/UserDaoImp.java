@@ -30,7 +30,7 @@ public class UserDaoImp implements UserDao {
         query.setParameter("email", user.getEmail());
         userEmail = query.getResultList();
         if (userEmail == null || userEmail.isEmpty()) {
-            sessionFactory.getCurrentSession().save(user);
+            session.save(user);
         }
         return true;
     }
