@@ -16,7 +16,7 @@ public class MainApp {
 
         String modelCar = "Mercedes";
         int seriesCar = 600;
-        userService.addUser(new User("Aleksandr", "Aleksandrov", "Aleksandrov@mail.ru", new Car(modelCar,seriesCar)));
+        userService.addUser(new User("Aleksandr", "Aleksandrov", "Aleksandrov@mail.ru", new Car(modelCar, seriesCar)));
         userService.addUser(new User("Ivan", "Ivanov", "Ivanov@mail.ru", new Car("BMW", 7)));
         userService.addUser(new User("Sergej", "Sergeev", "Sergeev@mail.ru", new Car("Tesla", 3)));
         userService.addUser(new User("Victor", "Victorov", "Victorov@mail.ru", new Car("Honda", 10)));

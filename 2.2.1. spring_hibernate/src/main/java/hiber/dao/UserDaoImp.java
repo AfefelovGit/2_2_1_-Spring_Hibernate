@@ -12,18 +12,16 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public UserDaoImp(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public boolean addUser(User user) {
         List<User> userEmail = null;
-
-        if (user.getEmail() == null || user.getEmail().length() < 6
-                || user.getFirstName() == null || user.getFirstName().length() < 3
-                || user.getLastName() == null || user.getLastName().length() < 3) {
-            return false;
-        }
 
         Session session = sessionFactory.getCurrentSession();
         TypedQuery<User> query = session.createQuery("from User where email = :email", User.class);
