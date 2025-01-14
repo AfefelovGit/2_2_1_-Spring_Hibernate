@@ -7,9 +7,7 @@ import javax.persistence.*;
 import static java.lang.String.format;
 
 @Entity
-@Table(
-        name = "users",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "users")
 public class User {
 
     @Id
@@ -23,7 +21,7 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @OneToOne(mappedBy = "user")
